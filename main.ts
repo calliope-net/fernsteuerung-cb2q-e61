@@ -25,6 +25,7 @@ input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
     btf.set_timeoutDisbled(Spur_Sensor_Knopf_B)
 })
 receiver.onAbstandEvent(function (abstand_Sensor, abstand_Stop, cm) {
+    cb2.buffer_Hindernis_ausweichen(btf.btf_receivedBuffer19(), abstand_Stop)
     cb2.event_Hindernis_ausweichen(
     Ultraschall_Sensor_Knopf_A && !(Spur_Sensor_Knopf_B),
     abstand_Stop,
@@ -84,7 +85,9 @@ cb2.beimStart()
 btf.zeigeBIN(cb2.readVersionArray()[1], btf.ePlot.bin, 2)
 btf.zeigeBIN(cb2.readSpannung(), btf.ePlot.bcd, 4)
 basic.forever(function () {
-    receiver.raiseAbstandEvent(Ultraschall_Sensor_Knopf_A, 30, 35)
+    receiver.buffer_raiseAbstandEvent(btf.btf_receivedBuffer19())
+    cb2.buffer_raiseSpurEvent(btf.btf_receivedBuffer19())
+    receiver.raiseAbstandEvent(Ultraschall_Sensor_Knopf_A, 25, 30)
     cb2.raiseSpurEvent(Spur_Sensor_Knopf_B)
 })
 loops.everyInterval(700, function () {
