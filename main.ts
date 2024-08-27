@@ -1,4 +1,5 @@
 function Strecken () {
+    btf.set_timeoutDisbled(true)
     cb2.fahreStrecke(192, 31, 40)
     cb2.fahreStrecke(64, 31, 40)
     cb2.fahreStrecke(255, 16, 20)
@@ -11,14 +12,11 @@ input.onButtonEvent(Button.A, input.buttonEventClick(), function () {
     btf.set_timeoutDisbled(Ultraschall_Sensor_Knopf_A)
 })
 input.onButtonEvent(Button.AB, input.buttonEventClick(), function () {
-	
+    Strecken()
 })
 cb2.onAbstandEvent(function (abstand_Sensor, abstand_Stop, cm) {
 	
 })
-function Fahrplan () {
-    cb2.fahrplanBuffer5Strecken(btf.btf_receivedBuffer19(), btf.e3aktiviert.m1)
-}
 input.onButtonEvent(Button.B, input.buttonEventClick(), function () {
     Spur_Sensor_Knopf_B = !(Spur_Sensor_Knopf_B)
     Ultraschall_Sensor_Knopf_A = Spur_Sensor_Knopf_B
@@ -52,6 +50,8 @@ btf.onReceivedDataChanged(function (receivedData, changed) {
     Ultraschall_Sensor_Knopf_A = false
     Spur_Sensor_Knopf_B = false
     cb2.fahreJoystick(receivedData, 50)
+    cb2.fahrplanBuffer5Strecken(btf.btf_receivedBuffer19(), btf.e3aktiviert.m1)
+    cb2.fahrplanBuffer2x2Motoren(btf.btf_receivedBuffer19(), btf.e3aktiviert.ma)
     btf.setLedColors(btf.btf_RgbLed(btf.eRgbLed.a), 0x0000ff, true, true)
     btf.zeige5x5Buffer(receivedData)
     btf.zeige5x5Joystick(receivedData)
@@ -60,7 +60,7 @@ btf.onReceivedDataChanged(function (receivedData, changed) {
 function Konfiguration () {
     btf.comment(btf.btf_text("GitHub: calliope-net/fernsteuerung-cb2-e61"))
     btf.comment(btf.btf_text("Erweiterung: calliope-net/fernsteuerung"))
-    btf.comment(btf.btf_text(",\"yotta\":{\"config\":{\"microbit-dal\":{\"bluetooth\":{\"pairing_mode\":1,\"partial_flashing\":0}}}}"))
+    btf.comment(btf.btf_text(",\"yotta\":{\"config\":{\"microbit-dal\":{\"bluetooth\":{\"pairing_mode\":0,\"partial_flashing\":0}}}}"))
 }
 cb2.onSpurEvent(function (links_hell, rechts_hell, abstand_Stop) {
     cb2.buffer_Spur_folgen(btf.btf_receivedBuffer19(), links_hell, rechts_hell, abstand_Stop)
