@@ -4,8 +4,8 @@
     "description": "",
     "dependencies": {
         "core": "*",
-        "v1": "*",
-        "fernsteuerung": "github:calliope-net/fernsteuerung#v1.4.29"
+        "fernsteuerung": "github:calliope-net/fernsteuerung#v1.5.11",
+        "v1": "*"
     },
     "files": [
         "main.blocks",
@@ -22,12 +22,12 @@
     "supportedTargets": [
         "calliopemini"
     ],
-    "preferredEditor": "tsprj",
+    "preferredEditor": "blocksprj",
     "yotta": {
         "config": {
             "microbit-dal": {
                 "bluetooth": {
-                    "pairing_mode": 1,
+                    "pairing_mode": 0,
                     "partial_flashing": 0
                 }
             }
